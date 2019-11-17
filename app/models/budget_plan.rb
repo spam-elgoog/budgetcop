@@ -1,0 +1,2 @@
+class BudgetPlan < ApplicationRecord
+end
