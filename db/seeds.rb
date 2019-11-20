@@ -1,7 +1,23 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require_relative 'data_helper'
+
+# Categories Table
+Category.connection.execute 'ALTER TABLE `categories` AUTO_INCREMENT = 1'
+populate_categories
+
+# Users Table
+User.connection.execute 'ALTER TABLE `users` AUTO_INCREMENT = 1'
+populate_users
+
+# Budget_Plans Table
+BudgetPlan.connection.execute 'ALTER TABLE `budget_plans` AUTO_INCREMENT = 1'
+populate_plans
+
+# Budget_Details Table
+@plans = BudgetPlan.all
+BudgetDetail.connection
+            .execute 'ALTER TABLE `budget_details` AUTO_INCREMENT = 1'
+populate_details @plans
+
+# Expenses Table
+Expense.connection.execute 'ALTER TABLE `expenses` AUTO_INCREMENT = 1'
+populate_expenses @plans

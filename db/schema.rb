@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_17_044951) do
+ActiveRecord::Schema.define(version: 2019_11_20_145925) do
 
   create_table "budget_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "category_id", null: false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2019_11_17_044951) do
     t.date "plan_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["plan_date"], name: "index_budget_plans_on_plan_date", unique: true
+    t.index ["user_id", "plan_date"], name: "index_budget_plans_on_user_id_and_plan_date", unique: true
     t.index ["user_id"], name: "index_budget_plans_on_user_id"
   end
 
