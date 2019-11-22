@@ -15,6 +15,9 @@ Things you may want to cover:
 
 * Database initialization
 
+Once you have the project up and running with 'dev server' execute the following command
+$ rails db:seed
+
 * How to run the test suite
 
 * Services (job queues, cache servers, search engines, etc.)
