@@ -13,10 +13,17 @@ Things you may want to cover:
 
 * Database creation
 
-* Database initialization
 
-Once you have the project up and running with 'dev server' execute the following command
-$ rails db:seed
+
+### Database initialization and Database creation
+
+The project is managed by dev up utility, upon executing `dev up`, an empty mySql database will get created for you.
+
+Once you have the project up and running with `dev server` execute the following command
+```
+  rails db:seed
+```
+
 
 * How to run the test suite
 
