@@ -1,0 +1,17 @@
+<p>
+  <h3>Categories</h3>
+</p>
+
+<p>
+<ul>
+ <% @cats.each do |cat|%>
+  <li><strong>ID:</strong><%= cat.id %>
+  <%= cat.category %>
+  <%= cat.short_desc %>
+  <%= cat.full_desc %></li>
+  <% end %>
+<ul>
+</p>
+
+<br>
+<%= link_to 'Show All', categories_path %>
