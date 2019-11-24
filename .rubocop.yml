@@ -1,0 +1,8 @@
+# You don't want to add anything here, but rather in .rubocop.cacheable.yml. Believe me.
+inherit_from:
+  - http://shopify.github.io/ruby-style-guide/rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - vendor/**/*
