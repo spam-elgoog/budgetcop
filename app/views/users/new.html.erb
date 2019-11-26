@@ -1,0 +1,45 @@
+<div id="main-card" class="main-card">
+  <h1>Sign up</h1>
+
+
+  <% if @user.errors.any? %>
+  <div style="height: 100px;" class="error_messages">
+      <h2>Unable to create profile</h2>
+          <% @user.errors.full_messages.each do |msg| %>
+          <%= msg %>
+          <% end %>
+  </div>
+  <% end  %>
+
+  <div>
+    <%= form_with(model: @user, local: true) do |f|%>
+      <div class="container">
+      
+        <%= f.label "First Name", class: 'item1'%>
+        <%= f.text_field :f_name, class: 'item2'%>
+
+        <%= f.label :"last name" %>
+        <%= f.text_field :l_name %>
+      
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+    
+        <%= f.label :"user name" %>
+        <%= f.text_field :user_name %>
+
+  
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.label :"confirm password" %>
+        <%= f.password_field :password_confirmation %>
+        <p></p>
+        
+     
+      </div>
+      <div style="height: 50px; padding-top: 15px;">
+      <%= f.submit("Sign up")%>
+      </div>
+    <% end %>
+  </div>
+</div>
