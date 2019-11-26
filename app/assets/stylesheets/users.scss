@@ -1,0 +1,32 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+/*label {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
+}​*/
+.main-card{
+  padding-bottom: -20px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  
+  column-gap: 10px;
+  row-gap: 10px;
+  padding-right: 30px;
+}
+
+.container > label { 
+  text-align:right; 
+} 
+
+
+/*
+div.settings label:after {
+  content: ""; 
+} */
+

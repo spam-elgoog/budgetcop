@@ -1,0 +1,31 @@
+<div id="main-card" class="main-card">
+        
+        <div class="cardContent">
+          <div class="cardText">
+            <p style="color: green; text-align: right;"><%=flash[:notice]%></p>
+            <% if current_user %>
+            <div class="log-out">
+              Logged in as <%= current_user.f_name %>
+              <%= link_to "Log Out", logout_path, class: 'links' %>
+            </div>
+            <% end %>
+            <h1>Welcome to BudgetCop!</h1>
+            <% if current_user && current_user.admin %>
+              <div class="nav-bar">
+                <%= link_to "Users", users_path, class: 'links' %>
+              </div>
+            <% end %>
+            <hr/>
+            <p class="main-p"><span class="p-app-name">BudgetCop</span> was founded <em>Dipti Rijwal</em>, <em>Juanita Dash</em> and <em>Peter Studnicka</em> while they were development interns at <strong>Shopify</strong>. This faboulous group
+            was part of the original Welcome Back Group, an original undertaking by the RnD arm at Shopify.</p>
+          </div>
+          <div class="cardLinks">
+            <% if !current_user %>
+              <%= link_to "Log In", login_path, class: 'links' %> |
+              <%= link_to "Sign up", new_user_path, class: 'links' %>
+            <% end %>
+          </div>
+        </div>
+
+<p><em style="font-size: 0.7em;">Copyright 2019</em></p>
+</div>
