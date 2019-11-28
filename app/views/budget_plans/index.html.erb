@@ -1,0 +1,19 @@
+<h1>Your Budget Plans</h1>
+
+<p>
+<ul>
+ <% @budgets.each do |b|%>
+    <li>
+      <strong>ID:</strong>
+      <%= b.id %>/
+      <%= b.plan_date %>/
+      <%= b.user_id %>/
+    </li>
+  <% end %>
+<ul>
+</p>
+
+<%= debug(params) %> <br/>
+<!-- <%= debug(assigns) %><br/>
+<%= debug(session) %>
+<%= debug(controller) %>  -->

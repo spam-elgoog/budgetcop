@@ -6,12 +6,17 @@ Rails.application.routes.draw do
   # or rails < 4
   # root to: 'welcome#index'
   # get 'welcome/index'
+  get '/plan/:budget_plan_id/expenses(.:format)', to: 'expenses#index', as: 'my_expenses'
+  get '/plans(.:format)', to: 'budget_plans#index'
 
   #
   # Users
   #
-  resources :users
-
+  resources :users do
+    resources :budget_plans do
+      resources :expenses
+    end
+  end
   #
   # Session and Authentication routes
   # Remapping route
@@ -28,6 +33,5 @@ Rails.application.routes.draw do
   # Categories
   #
   get '/categories', to: 'categories#index'
-  get '/json/categories', to: 'categories#catjson'
-
+  # get '/json/categories', to: 'categories#catjson'
 end
