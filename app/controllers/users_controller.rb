@@ -1,17 +1,26 @@
 # frozen_string_literal: true
-
-# User Controller
 class UsersController < ApplicationController
-  # before_action :check_login, only: [:show, :edit, :update, :destroy]
+  # User must be logged in and authorized to view user related views
+  # TODO: before_action :check_login, only: [:show, :edit, :update, :destroy]
+  # current user must have admin rights to be able to see and execute these actions
   before_action :authorize, only: [:show, :index, :edit, :update, :destroy]
-  # TODO: make accessible only to admins
-  # Only admin users can access this view
+
   def index
     @users = User.all
+    respond_to do |format|
+      format.html
+      # as_json or to_json??
+      format.json { render(json: @users.as_json(only: %i[id f_name l_name email user_name])) }
+    end
   end
 
   def new
     @user = User.new
+    respond_to do |format|
+      format.html
+      # as_json or to_json??
+      format.json { render(json: @user.as_json(only: %i[id f_name l_name email user_name])) }
+    end
   end
 
   def create

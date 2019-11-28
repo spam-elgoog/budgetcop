@@ -1,2 +1,21 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1>People in love with BudgetCop</h1>
+
+<p>
+<ul>
+ <% @users.each do |u|%>
+    <li>
+      <strong>ID:</strong>
+      <%= u .id %>/
+      <%= u.f_name %>/
+      <%= u.l_name %>/
+      <%= u.user_name %>/
+      <%= u.email %>
+    </li>
+  <% end %>
+<ul>
+</p>
+
+<%= debug(params) %> <br/>
+<!-- <%= debug(assigns) %><br/>
+<%= debug(session) %>
+<%= debug(controller) %>  -->
