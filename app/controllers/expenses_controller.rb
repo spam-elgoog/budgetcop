@@ -4,25 +4,25 @@ class ExpensesController < ApplicationController
 
   def index
     @budget_id = params[:budget_plan_id]
-    unless @budget_id.blank?
+    if @budget_id.present?
       begin
+        # Keep this instance variable for now for HTML view 
         @plan = current_user.budget_plans.find(@budget_id)
 
       rescue ActiveRecord::RecordNotFound => e
-        render(json: { error: 'Budget plan not found for this user.' }, status: :not_found)
+        render(json: { error: 'Budget plan not found for this user. Do not make me suspend you.' }, status: :not_found)
         return
       end
-      if @plan
-        @expenses = Expense.where(budget_plan_id: @budget_id).order(:category_id)
-        respond_to do |format|
-          format.html
-          # as_json or to_json??
-          format.json { render(json: @expenses.as_json(only: %i[id category_id details amount])) }
-        end
-        return
+
+      # TODO: test what this displays if there are no expenses found
+      @expenses = Expense.where(budget_plan_id: @budget_id).order(:category_id)
+      respond_to do |format|
+        format.html
+        # as_json or to_json??
+        format.json { render(json: @expenses.as_json(only: %i[id category_id details amount])) }
       end
+      return
     end
-    redirect_to(root_url, notice: 'You are not authorize, this action has been logged, further requests
-      may lead to suspension of your account!')
+    redirect_to(root_url, notice: 'Unauthorized request')
   end
 end
