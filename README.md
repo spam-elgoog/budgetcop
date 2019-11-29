@@ -1,18 +1,35 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+
 
 Things you may want to cover:
 
 * Ruby version
-
 * System dependencies
-
 * Configuration
-
 * Database creation
 
+
+### Available JSON Routes
+
+Should mention that some of these have an equivalent HTML routes with templates.
+Some templates are missing as these will not be used since we are using react and
+polaris. 
+
+<b>List of Users</b> (need to be admin or user peterspam user)
+- /users.json 
+- /users (This is the equivalent html route)
+
+<b>Budget Plans</b> (currently logged in user)
+- /users/budget_plans.json
+
+<b>Categories</b> (returns all valid categories these are not user specific)
+- /categories.json
+
+<b>Expenses</b>
+- /plan/:budget_plan_id/expenses.json
+
+On AvtiveRecord::RecordNotFound error -> returns json {"error":"Budget plan not found for this user."}
 
 
 ### Database initialization and Database creation

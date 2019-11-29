@@ -1,15 +1,13 @@
-<h1>People in love with BudgetCop</h1>
+<h1>Your Budget Plans</h1>
 
 <p>
 <ul>
- <% @users.each do |u|%>
+ <% @budgets.each do |b|%>
     <li>
       <strong>ID:</strong>
-      <%= u .id %>/
-      <%= u.f_name %>/
-      <%= u.l_name %>/
-      <%= u.user_name %>/
-      <%= u.email %>
+      <%= b.id %>/
+      <%= b.plan_date %>/
+      <%= b.user_id %>/
     </li>
   <% end %>
 <ul>
