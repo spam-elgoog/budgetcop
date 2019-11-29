@@ -9,6 +9,9 @@ Things you may want to cover:
 * Configuration
 * Database creation
 
+### GraphQL queries
+
+[follow me](./Vendor/GraphQL.md)
 
 ### Available JSON Routes
 
