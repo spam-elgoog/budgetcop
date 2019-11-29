@@ -11,7 +11,7 @@ Things you may want to cover:
 
 ### GraphQL queries
 
-[follow me](./Vendor/GraphQL.md)
+[follow me](./GraphQL.md)
 
 ### Available JSON Routes
 
