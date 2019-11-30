@@ -3,7 +3,8 @@
 # User Model
 class User < ApplicationRecord
   has_many :budget_plans, dependent: :destroy
-  has_many :budget_details, through: :budget_plans
+  has_many :budget_details, through: :budget_plans, dependent: :destroy
+  has_many :expenses, through: :budget_plans, dependent: :destroy
   # This is for the bcrypt gem
   has_secure_password
 end
