@@ -80,21 +80,24 @@ mutation delete_user_by_id{
     email
   }
 }
-mutation create_user{
+
+mutation create_user {
   createUser(input:{
-  	fName: "Mike"
+    attributes:{
+  	fName: "Bob"
     lName: "Sanders"
-    email: "mike@gm.com"
-    userName: "mikesanders"
+    email: "bob@gm.com"
+    userName: "bobsanders"
     password: "password"
     passwordConfirmation: "password"
+  	}	
   }){
     user{
       id
       fName
       lName
-      email
       userName
+      email
     }
   }
 }
