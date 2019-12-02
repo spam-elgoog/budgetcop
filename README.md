@@ -2,12 +2,14 @@
 
 
 
-Things you may want to cover:
+Contents
 
 * Ruby version
 * System dependencies
 * Configuration
-* Database creation
+* GraphQL Queries/Mutations
+* JSON Routes
+* Database Related Info
 
 ### GraphQL queries
 
@@ -36,6 +38,8 @@ On AvtiveRecord::RecordNotFound error -> returns json {"error":"Budget plan not 
 
 
 ### Database initialization and Database creation
+
+Database [Schema](./db/BudgetCop.png)
 
 The project is managed by dev up utility, upon executing `dev up`, an empty mySql database will get created for you.
 
