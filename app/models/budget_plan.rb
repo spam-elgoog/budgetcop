@@ -15,11 +15,11 @@ class BudgetPlan < ApplicationRecord
   end
 
   def month
-    Date::MONTHNAMES[self[:plan_date].month]
+    Date::MONTHNAMES[self[:plan_date]&.month]
   end
 
   def year
-    self[:plan_date].year
+    self[:plan_date]&.year
   end
 
   def self.create_db_date(date)
