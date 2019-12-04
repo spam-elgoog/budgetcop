@@ -1,21 +1,20 @@
 # frozen_string_literal: true
 module Mutations
   class DeleteDetail < BaseMutation
-    # use this for autoloading the user based on the id
-    # no need to call User.find(id)?
-    # argument :post_id, ID, required: true, loads: Types::Post
-
     argument :id, ID, required: true
-    type Types::Custom::PlanDetailType
-    # type String
+    field :detail, Types::Custom::PlanDetailType, null: true
+    field :errors, [String], null: true
+
     def resolve(id:)
+      # TODO: check that the budget id is owned by current_user
       detail = BudgetDetail.find(id)
 
-      detail unless detail.destroy
-      # ? (PlanDetailType: detail, errors: []) : (PlanDetailType: detail, errors: detail.errors.full_messages)
-      # , detail.errors.full_messages
-      # "Detail was deleted ID #{detail.id} with this Budget Plan id #{detail.budget_plan_id} and
-      # category #{detail.category_id}" unless detail
+      if detail.present?
+        detail.destroy
+        { detail: detail, errors: [] }
+      else
+        { detail: nil, errors: ['This budget plan detail item does not exist'] }
+      end
     end
   end
 end

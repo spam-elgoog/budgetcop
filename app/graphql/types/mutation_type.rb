@@ -12,5 +12,13 @@ module Types
     field :delete_detail,
       mutation: Mutations::DeleteDetail,
       description: 'Delete one budget category detail.'
+
+    field :create_plan,
+      mutation: Mutations::CreatePlan,
+      description: 'Create new Budget.'
+
+    field :delete_plan,
+      mutation: Mutations::DeletePlan,
+      description: 'Deletes Budget Plan.'
   end
 end
