@@ -9,7 +9,7 @@ class ExpensesController < ApplicationController
         # Keep this instance variable for now for HTML view 
         @plan = current_user.budget_plans.find(@budget_id)
 
-      rescue ActiveRecord::RecordNotFound => e
+      rescue ActiveRecord::RecordNotFound => _e
         render(json: { error: 'Budget plan not found for this user. Do not make me suspend you.' }, status: :not_found)
         return
       end

@@ -16,7 +16,7 @@ module Types
       User.all
     end
 
-    field :user, Custom::UserType, null: false do
+    field :user, Types::Custom::UserType, null: false do
       description 'Returns user details.'
       argument :id, ID, 'Get details of the user with this ID ', required: true
     end
@@ -31,7 +31,7 @@ module Types
     #
     # Retrieve all system defined Categories
     field :all_categories,
-      [Custom::CategoryType],
+      [Types::Custom::CategoryType],
       null: false,
       description: 'Returns all supported budget plan categories'
 
@@ -45,7 +45,7 @@ module Types
     #
     # Budget Plans
     #
-    field :all_plans_by_user_id, [Custom::PlanType], null: true do
+    field :all_plans_by_user_id, [Types::Custom::BudgetPlanType], null: true do
       description "Find plans by a user id"
       argument :id, ID, 'Get plans based on this ID ', required: true
     end
@@ -60,13 +60,33 @@ module Types
     # Budget Details
     #
     #
-    field :all_details_by_plan_id, [Custom::PlanDetailType], null: true do
+    field :all_details_by_plan_id, [Types::Custom::PlanDetailType], null: true do
       description "Find plans by a user id"
       argument :id, ID, 'Get details based on this plan ID ', required: true
     end
-    # this method is invoked, when `all_users` fields is being resolved
+
     def all_details_by_plan_id(id:)
-      BudgetDetail.where(budget_plan_id: id)
+
+      detail = BudgetDetail.joins(:category)
+        .where(budget_plan_id: id)
+        .pluck(:budget_plan_id, :id, :amount, :category_id, :category, :short_desc)
+
+      HashMapper.new(detail).map_to_keys(%i[budget_plan_id id amount category_id category short_desc])
+
+      # This can be used instead of HashMapper
+      # detail = BudgetDetail.joins(:category)
+      # .where(budget_plan_id: id)
+      # .select(:budget_plan_id, :id, :amount, :category_id, :category, :short_desc)
+      # detail.map do |item|
+      #   {
+      #     budget_plan_id: item.budget_plan_id,
+      #     id: item.id,
+      #     amount: item.amount,
+      #     category_id: item.category_id,
+      #     short_desc: item.short_desc,
+      #     category: item.category&.category
+      #   }
+      # end
     end
 
     # ************************************************************************
@@ -74,7 +94,7 @@ module Types
     # Budget Expenses
     #
     # Find Expenses by plan ID
-    field :all_expenses_by_plan_id, [Custom::ExpenseType], null: true do
+    field :all_expenses_by_plan_id, [Types::Custom::ExpenseType], null: true do
       description "Find Expenses by a plan id"
       argument :id, ID, 'Get expenses based on this plan ID ', required: true
     end
