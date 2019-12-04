@@ -9,20 +9,20 @@ module Types
       field :l_name, String, null: false, description: ""
       field :email, String, null: false, description: ""
       field :user_name, String, null: false, description: ""
-      field :password, String, null: false
+      # field :password, String, null: false
       field :plans_count, Integer, null: true
 
       private
 
-      def plans_count
-        object.budget_plans.count
-        # can be anything like size whatever makes sense
-        # object.plans.size
-      end
+      # def plans_count
+      #   { plans_count: object.budget_plans.size}
+      #   # can be anything like size whatever makes sense
+      #   # object.plans.size
+      # end
 
-      def current_plan?
-        # return if user has a current month plan avail
-      end
+      # def current_plan?
+      #   # return if user has a current month plan avail
+      # end
     end
   end
 end
