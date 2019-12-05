@@ -1,11 +1,27 @@
 ### Available Queries and Mutations
 
 <pre>
+mutation crete_detail_for_plan {
+  createPlanDetail(input:{
+    userId: 2
+    attributes: {
+    	budgetPlanId: 2
+      categoryId: 3
+      categoryType: supplies
+      amount: 55.00
+    }
+  }) {
+      id
+    	errors
+  }
+}
+    
 query planById {
-  allPlansByUserId(id: 2) {
+	allPlansByUserId(userId: 2, contentChoice: NEWEST){
     id
-    month
     planDate
+    year
+    month
   }
 }
 
@@ -29,7 +45,7 @@ query cats {
 }
 
 query plans_by_user {
-  allPlansByUserId(id: 2) {
+	allPlansByUserId(userId: 2, contentChoice: NEWEST) {
     id
     planDate
     year
@@ -38,7 +54,7 @@ query plans_by_user {
 }
 
 query plan_details {
-  allDetailsByPlanId(id: 2) {
+  allDetailsByPlanId(planId: 2) {
     budgetPlanId
     amount
     id
@@ -49,7 +65,7 @@ query plan_details {
 }
 # create similar but with totals of expenses
 query plan_expenses {
-  allExpensesByPlanId(id: 2) {
+  allExpensesByPlanId(planId: 2) {
     budgetPlanId
     id
     details
@@ -91,7 +107,14 @@ mutation delete_user_by_id {
 }
 
 mutation create_user {
-  createUser(input: {attributes: {fName: "Bob", lName: "Sanders", email: "bob@gm.com", userName: "bobsanders", password: "password", passwordConfirmation: "password"}}) {
+  createUser(input: {
+    attributes: {
+      fName: "Bob",
+      lName: "Sanders",
+      email: "bob@gm.com",
+      userName: "bobsanders",
+      password: "password",
+      passwordConfirmation: "password"}}) {
     user {
       id
       fName
@@ -114,7 +137,7 @@ mutation delete_plan {
 }
 
 mutation create_plan {
-  createPlan(input: {id: 2, planDate: "2019-08-08"}) {
+  createPlan(input: {userId: 2, planDate: "2019-07-08"}) {
     budgetPlan {
       id
       planDate
