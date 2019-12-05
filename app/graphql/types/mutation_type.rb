@@ -9,6 +9,10 @@ module Types
       mutation: Mutations::CreateUser,
       description: 'Creates a new user.'
 
+    field :create_plan_detail,
+      mutation: Mutations::CreatePlanDetail,
+      description: 'Create plan detail.'
+
     field :delete_detail,
       mutation: Mutations::DeleteDetail,
       description: 'Delete one budget category detail.'
