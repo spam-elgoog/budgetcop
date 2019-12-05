@@ -48,11 +48,20 @@ module Types
     field :all_plans_by_user_id, [Types::Custom::BudgetPlanType], null: true do
       description "Find plans by a user id"
       argument :id, ID, 'Get plans based on this ID ', required: true
+      argument :content_choice, Types::Custom::ContentChoiceType, required: true
     end
 
     # this method is invoked, when `all_users` fields is being resolved
-    def all_plans_by_user_id(id:)
-      BudgetPlan.where(user_id: id)
+    def all_plans_by_user_id(id:, content_choice:)
+      case content_choice.to_sym
+      when :NEWEST
+        # BudgetPlan.where(user_id: id).order(plan_date: :desc)
+        [BudgetPlan.where(user_id: id).latest_plan]
+      when :OLDEST
+        [BudgetPlan.where(user_id: id).oldest_plan]
+      else
+        BudgetPlan.where(user_id: id).by_plan_date
+      end
     end
 
     # ************************************************************************
@@ -66,7 +75,6 @@ module Types
     end
 
     def all_details_by_plan_id(id:)
-
       detail = BudgetDetail.joins(:category)
         .where(budget_plan_id: id)
         .pluck(:budget_plan_id, :id, :amount, :category_id, :category, :short_desc)

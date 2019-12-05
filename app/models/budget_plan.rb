@@ -5,6 +5,9 @@ class BudgetPlan < ApplicationRecord
   belongs_to :user
   has_many :budget_details, dependent: :destroy
   has_many :expenses, dependent: :destroy
+  scope :by_plan_date, -> { order(plan_date: :desc) }
+  scope :latest_plan, -> { by_plan_date.first }
+  scope :oldest_plan, -> { by_plan_date.last }
 
   def self.db_date(date)
     if date.present?
