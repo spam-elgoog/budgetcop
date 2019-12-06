@@ -1,7 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+_fixture:
+  model_class: Category
 one:
-  category: MyString
+  category: supplies
+  short_desc: Office Supplies
+  full_desc: Anything office related
 
 two:
-  category: MyString
+  category: shipping
+  short_desc: Office Supplies
+  full_desc: Anything office related
