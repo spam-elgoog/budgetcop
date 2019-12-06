@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_235059) do
+ActiveRecord::Schema.define(version: 2019_11_20_145925) do
 
   create_table "budget_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "category_id", null: false
@@ -65,6 +65,4 @@ ActiveRecord::Schema.define(version: 2019_11_29_235059) do
     t.index ["user_name"], name: "index_users_on_user_name", unique: true
   end
 
-  add_foreign_key "budget_details", "categories"
-  add_foreign_key "expenses", "categories"
 end

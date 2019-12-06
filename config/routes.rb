@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'budget_details/index'
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :budget_plans do
       resources :expenses
+      resources :budget_details
     end
   end
   #
