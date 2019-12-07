@@ -4,7 +4,12 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    if session[:token]
+      crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
+      token = crypt.decrypt_and_verify(session[:token])
+      # @current_user ||= User.find(session[:token]) if session[:token]next
+      @current_user ||= User.find(token)
+    end
   end
 
   def check_login

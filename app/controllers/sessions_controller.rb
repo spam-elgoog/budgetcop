@@ -6,7 +6,9 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(user_name: params[:user_name])
     if user&.authenticate(params[:password])
-      session[:user_id] = user.id
+      crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
+      token = crypt.encrypt_and_sign(user.id)
+      session[:token] = token
       redirect_to(root_url, notice: 'Logged in!')
     else
       flash.now.notice = 'Oops that is not what we were expecting'
@@ -15,7 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    session[:token] = nil
     redirect_to(root_url, notice: 'Logged out!')
   end
 end

@@ -3,7 +3,7 @@ module Mutations
   class DeleteDetail < BaseMutation
     argument :id, ID, required: true
     field :detail, Types::Custom::PlanDetailType, null: true
-    field :errors, [String], null: true
+    field :errors, [String], null: false
 
     def resolve(id:)
       # TODO: check that the budget id is owned by current_user

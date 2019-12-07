@@ -19,7 +19,9 @@ class User < ApplicationRecord
   private
 
   def check_last
-    # cancel find a reason so meet learning objective
-    # throw(:abort)
+    if User.where(admin: true).count <= Constants::MINIMUM_ADMIN_USERS
+      errors[:base] << 'Cannot delete this admin user, you need minimum of two.'
+      throw(:abort)
+    end
   end
 end

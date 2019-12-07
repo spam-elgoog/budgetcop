@@ -24,5 +24,9 @@ module Types
     field :delete_plan,
       mutation: Mutations::DeletePlan,
       description: 'Deletes Budget Plan.'
+
+    field :sign_in_user,
+    mutation: Mutations::SignInUser,
+    description: 'Sign in'
   end
 end

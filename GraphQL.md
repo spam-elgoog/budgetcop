@@ -1,6 +1,22 @@
 ### Available Queries and Mutations
 
 <pre>
+mutation signIn{
+  signInUser(input:{
+    auth:{
+      username: "peterspam"
+      password: "tophat.made"
+    }
+  }){
+    user{
+      fName
+      lName
+    }
+    token
+    errors
+  }
+}
+
 mutation crete_detail_for_plan {
   createPlanDetail(input:{
     userId: 2
@@ -17,13 +33,22 @@ mutation crete_detail_for_plan {
 }
     
 query planById {
-	allPlansByUserId(userId: 2, contentChoice: NEWEST){
+	allPlansByUserId(userId: 4, contentChoice: NEWEST){
     id
     planDate
     year
     month
   }
 }
+query plans_by_user {
+	allPlansByUserId(userId: 4, contentChoice: ALL) {
+    id
+    planDate
+    year
+    month
+  }
+}
+
 
 query users {
   allUsers {
@@ -41,15 +66,6 @@ query cats {
     category
     shortDesc
     fullDesc
-  }
-}
-
-query plans_by_user {
-	allPlansByUserId(userId: 2, contentChoice: NEWEST) {
-    id
-    planDate
-    year
-    month
   }
 }
 
@@ -104,6 +120,7 @@ mutation delete_user_by_id {
     id
     email
   }
+  errors
 }
 
 mutation create_user {
@@ -127,7 +144,7 @@ mutation create_user {
 }
 
 mutation delete_plan {
-  deletePlan(input: {userId: 2, id: 26}) {
+  deletePlan(input: {userId: 2, planId: 26}) {
     budgetPlan {
       id
       planDate

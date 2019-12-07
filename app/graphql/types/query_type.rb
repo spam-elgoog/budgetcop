@@ -53,14 +53,18 @@ module Types
 
     # this method is invoked, when `all_users` fields is being resolved
     def all_plans_by_user_id(user_id:, content_choice:)
-      case content_choice.to_sym
-      when :NEWEST
-        # BudgetPlan.where(user_id: id).order(plan_date: :desc)
-        [BudgetPlan.where(user_id: user_id).latest_plan]
-      when :OLDEST
-        [BudgetPlan.where(user_id: user_id).oldest_plan]
+      if BudgetPlan.where(user_id: user_id).exists?
+        case content_choice.to_sym
+        when :NEWEST
+          # BudgetPlan.where(user_id: id).order(plan_date: :desc)
+          [BudgetPlan.where(user_id: user_id).latest_plan]
+        when :OLDEST
+          [BudgetPlan.where(user_id: user_id).oldest_plan]
+        else
+          BudgetPlan.where(user_id: user_id).by_plan_date
+        end
       else
-        BudgetPlan.where(user_id: user_id).by_plan_date
+        Constants::EMPTY_ARRAY
       end
     end
 
