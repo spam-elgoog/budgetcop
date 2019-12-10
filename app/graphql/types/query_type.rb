@@ -73,12 +73,12 @@ module Types
     # Budget Details
     #
     #
-    field :all_plan_details, [Types::Custom::PlanDetailType], null: true do
+    field :all_details_by_plan_id, [Types::Custom::PlanDetailType], null: true do
       description "Find plans by a user id"
       argument :plan_id, ID, 'Get details based on this plan ID ', required: true
     end
 
-    def all_plan_details(plan_id:)
+    def all_details_by_plan_id(plan_id:)
       BudgetDetail.includes(:category).where(budget_plan_id: plan_id)
     end
 

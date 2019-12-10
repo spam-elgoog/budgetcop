@@ -21,9 +21,9 @@ mutation signIn{
 mutation create_expense {
 	createExpense(input:{
     attributes: {
-      planId: 9
+      planId: 2
       details: "Instagram Ads"
-      category: adss
+      category: ads
       amount: 55
     }
   }) {
@@ -32,7 +32,22 @@ mutation create_expense {
   }
 }
 
-mutation crete_detail_for_plan {
+query expenses{
+  allExpensesByPlanId(planId: 2, amountsOption: COMBINED){
+    id
+    details
+    amount
+    budgetPlanId
+    category{
+      id
+      category
+      shortDesc
+      fullDesc
+    }
+  }
+}
+
+mutation create_detail_for_plan {
   createPlanDetail(input:{
     userId: 2
     attributes: {
@@ -85,25 +100,19 @@ query cats {
 }
 
 query plan_details {
-  allDetailsByPlanId(planId: 2) {
-    budgetPlanId
-    amount
-    id
-    categoryId
-    category
-    shortDesc
-  }
-}
-# create similar but with totals of expenses
-query plan_expenses {
-  allExpensesByPlanId(planId: 2) {
+  allDetailsByPlanId(planId: 2){
     budgetPlanId
     id
-    details
-    categoryId
     amount
+    category{
+      id
+      category
+      shortDesc
+      fullDesc
+    }
   }
 }
+
 
 query one_user {
   user(id: 4) {
@@ -116,11 +125,17 @@ query one_user {
 }
 
 mutation delete_detail_by_id {
-  deleteDetail(input: {id: 15}) {
-    detail {
+  deleteDetail(input: {id: 73}) {
+    detail{
+    	budgetPlanId
       id
-      categoryId
       amount
+      category{
+        id
+        category
+				shortDesc
+        fullDesc
+    	}
     }
     errors
   }
