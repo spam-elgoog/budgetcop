@@ -26,6 +26,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'graphql'
 # gem "graphiql-rails"
 
+gem 'rack-cors'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'rubocop', require: false
