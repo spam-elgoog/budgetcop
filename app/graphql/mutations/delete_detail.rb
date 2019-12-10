@@ -7,14 +7,12 @@ module Mutations
 
     def resolve(id:)
       # TODO: check that the budget id is owned by current_user
-      detail = BudgetDetail.find(id)
-
-      if detail.present?
-        detail.destroy
-        { detail: detail, errors: [] }
-      else
-        { detail: nil, errors: ['This budget plan detail item does not exist'] }
-      end
+      BudgetDetail.find(id).detail.destroy!
+      { errors: [] }
+    rescue ActiveRecord::RecordNotFound => _e
+      { errors: ['This detail does not exist'] }
+    rescue ActiveRecord::RecordNotDestroyed => _f
+      { detail: detail, errors: detail.errors.full_messages }
     end
   end
 end
