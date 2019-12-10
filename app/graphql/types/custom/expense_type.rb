@@ -2,8 +2,7 @@
 module Types
   module Custom
     class ExpenseType < Types::BaseObject
-      # Add root-level fields here.
-      # They will be entry points for queries on your schema.
+      description "Represents a single Budget expense."
       field :id, ID, null: false, description: "Auto Generated ID"
       field :details, String, null: false, description: "User supplied Details of the expense"
       field :category_id, ID, null: false,

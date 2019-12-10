@@ -1,6 +1,7 @@
 ### Available Queries and Mutations
 
 <pre>
+
 mutation signIn{
   signInUser(input:{
     auth:{
@@ -14,6 +15,20 @@ mutation signIn{
     }
     token
     errors
+  }
+}
+
+mutation create_expense {
+	createExpense(input:{
+    attributes: {
+      planId: 9
+      details: "Instagram Ads"
+      category: adss
+      amount: 55
+    }
+  }) {
+    id
+  	errors
   }
 }
 
@@ -112,15 +127,16 @@ mutation delete_detail_by_id {
 }
 
 mutation delete_user_by_id {
-  deleteUser(input: {id: 8}) {
-    id
-    fName
-    lName
-    userName
-    id
-    email
+  deleteUser(input:{id: 1}){
+    user{
+      fName
+      lName
+      email
+      userName
+    }
+    errors
   }
-  errors
+  
 }
 
 mutation create_user {

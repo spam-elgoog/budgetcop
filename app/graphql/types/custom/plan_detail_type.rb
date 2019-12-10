@@ -2,6 +2,7 @@
 module Types
   module Custom
     class PlanDetailType < Types::BaseObject
+      description "Represents a single detail in a Budget Plan"
       field :id, ID, null: true, description: "Auto Generated ID"
       field :category_id, ID, null: true, description: "FK from Categories"
       field :amount, Float, null: true, description: "The amount this user budgeted on this Category"
