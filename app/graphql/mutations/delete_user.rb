@@ -13,7 +13,7 @@ module Mutations
     def resolve(id:)
       user = User.find(id)
       user.destroy!
-      { info: "User deteleted" }
+      { info: "User deleted" }
     rescue ActiveRecord::RecordNotFound => _e
       { errors: ['This user does not exist'] }
     rescue ActiveRecord::RecordNotDestroyed => _f

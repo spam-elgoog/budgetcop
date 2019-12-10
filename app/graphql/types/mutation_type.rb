@@ -13,6 +13,10 @@ module Types
       mutation: Mutations::CreatePlanDetail,
       description: 'Create plan detail.'
 
+    field :create_expense,
+      mutation: Mutations::CreateExpense,
+      description: 'Create new budget expense.'
+
     field :delete_detail,
       mutation: Mutations::DeleteDetail,
       description: 'Delete one budget category detail.'
