@@ -73,17 +73,13 @@ module Types
     # Budget Details
     #
     #
-    field :all_details_by_plan_id, [Types::Custom::PlanDetailType], null: true do
+    field :all_plan_details, [Types::Custom::PlanDetailType], null: true do
       description "Find plans by a user id"
       argument :plan_id, ID, 'Get details based on this plan ID ', required: true
     end
 
-    def all_details_by_plan_id(plan_id:)
-      detail = BudgetDetail.joins(:category)
-        .where(budget_plan_id: plan_id)
-        .pluck(:budget_plan_id, :id, :amount, :category_id, :category, :short_desc)
-
-      HashMapper.new(detail).map_to_keys(%i[budget_plan_id id amount category_id category short_desc])
+    def all_plan_details(plan_id:)
+      BudgetDetail.includes(:category).where(budget_plan_id: plan_id)
     end
 
     # ************************************************************************
@@ -94,10 +90,21 @@ module Types
     field :all_expenses_by_plan_id, [Types::Custom::ExpenseType], null: true do
       description "Find Expenses by a plan id"
       argument :plan_id, ID, 'Get expenses based on this plan ID ', required: true
+      argument :amounts_option, Types::Custom::AmountEnum,
+        'Option for returning all expenses individually or combined based on category', required: true
     end
     # Find expenses by plan ID
-    def all_expenses_by_plan_id(plan_id:)
-      Expense.where(budget_plan_id: plan_id)
+    def all_expenses_by_plan_id(plan_id:, amounts_option:)
+      if amounts_option == "COMBINED"
+        safe_sql = Expense.send(:sanitize_sql_array, [Expense::SQL_BY_PLAN_ID_SUM_AMOUNTS_BY_CATEGORY, plan_id])
+        Expense.find_by_sql(safe_sql)
+        # exp = Expense.where(budget_plan_id: plan_id).group(:category_id).sum(:amount)
+        # puts " what the hell #{exp}"
+        # obj = Expense.joins(:category).where(budget_plan_id: plan_id).group(:category_id).sum(:amount)
+        # puts obj.inspect
+      else
+        Expense.includes(:category).where(budget_plan_id: plan_id)
+      end
     end
 
     # field :user, UserType, null: false do
