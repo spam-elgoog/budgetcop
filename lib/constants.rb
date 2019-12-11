@@ -18,4 +18,10 @@ module Constants
     damages: 11,
     misc: 12,
   }
+
+  FIRST_NAME_VALID_RANGE = (2..20)
+  LAST_NAME_VALID_RANGE = (2..20)
+  USER_NAME_VALID_RANGE = (7..30)
+  PASSWORD_VALID_RANGE = (8..255)
+  EMAIL_VALID_RANGE = (8..80)
 end

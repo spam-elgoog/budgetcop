@@ -7,14 +7,28 @@ class User < ApplicationRecord
   has_many :expenses, through: :budget_plans, dependent: :destroy
 
   before_destroy :check_last
-
-  # This is for the bcrypt gem
   has_secure_password
 
-  validates :f_name, presence: true
-  validates :l_name, presence: true
-  validates :user_name, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
+  validates :f_name, :l_name, :email, :user_name, :password, presence: true
+
+  validates :f_name, length: { within: Constants::FIRST_NAME_VALID_RANGE }
+  validates :l_name, length: { within: Constants::LAST_NAME_VALID_RANGE }
+  validates :user_name, length: { within: Constants::USER_NAME_VALID_RANGE }
+  validates :password, length: { within: Constants::PASSWORD_VALID_RANGE }
+  validates :email, length: { within: Constants::EMAIL_VALID_RANGE }
+
+  validates :user_name, format: { with: /\A[a-zA-Z]+\z/,
+    message: "Only letters are allowed." }
+  validates :user_name,
+    uniqueness: { case_sensitive: false,
+      message: ->(obj, data) do
+        "Hey #{obj.f_name}!, #{data[:value]} is taken already... try again."
+      end
+    }
+
+  validates_uniqueness_of(:email, case_sensitive: false)
+  # TODO: add aditional validation to email, user_name, password etc
+  # validates_with BudgetCopValidator, fields: [:email, :user_name, :password]
 
   private
 
