@@ -1,7 +1,6 @@
 ### Available Queries and Mutations
 
 <pre>
-
 mutation signIn{
   signInUser(input:{
     auth:{
@@ -49,15 +48,17 @@ query expenses{
 
 mutation create_detail_for_plan {
   createPlanDetail(input:{
-    userId: 2
-    attributes: {
-    	budgetPlanId: 2
-      categoryId: 3
-      categoryType: supplies
-      amount: 55.00
-    }
+    userId: 1
+    budgetPlanId: 1
+    attributes: [
+			{
+        categoryType: storage
+        amount:1230
+    	},{
+        categoryType: misc
+        amount: 150.99
+    }]
   }) {
-      id
     	errors
   }
 }

@@ -3,19 +3,36 @@
 module Mutations
   class CreatePlanDetail < BaseMutation
     argument :user_id, ID, required: true, description: 'User ID you are creating a plan detail for'
-    argument :attributes, Types::Custom::PlanDetailAttributes, required: true
+    argument :budget_plan_id, ID, required: true
+    argument :attributes, [Types::Custom::PlanDetailAttributes], required: true
     field :id, ID, null: true
     field :errors, [String], null: false
 
-    def resolve(user_id:, attributes:)
-      # context[:current_user].id 
-      plan_detail = BudgetPlan.find(attributes.budget_plan_id)&.budget_details
-        .find_or_create_by(category_id: attributes.category_id) do |detail|
-        detail.amount = attributes.amount
+    def resolve(user_id:, budget_plan_id:, attributes:)
+      # TODO: context[:current_user].id
+      plan = BudgetPlan.find(budget_plan_id)
+      attributes.each do |item|
+
+        category_id = Constants::CATEGORY_ENUMS[item.category_type.to_sym]
+
+        plan_detail = plan.budget_details
+          .where(category_id: category_id)
+          .first
+
+        if plan_detail
+          plan_detail.update(amount: item.amount)
+        else
+          # create this detail
+          plan.budget_details
+            .create(category_id: category_id, amount: item.amount)
+        end
+
+      rescue ActiveRecord::RecordNotFound => _e
+        {  errors: ["The Budget Detail you are looking for does not exist. #{item.category}"] }
       end
-      { id: plan_detail.id, errors: Constants::EMPTY_ARRAY}
+      { errors: Constants::EMPTY_ARRAY }
     rescue ActiveRecord::RecordNotFound => _e
-      { id: nil, errors: ['The Budget Plan you are looking for does not exist.']}
+      { id: nil, errors: ['The Budget Plan you are looking for does not exist.'] }
     end
   end
 end
