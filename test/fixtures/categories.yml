@@ -1,12 +1,32 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 _fixture:
   model_class: Category
-one:
+supplies:
+  id: 1
   category: supplies
   short_desc: Office Supplies
   full_desc: Anything office related
 
-two:
+shipping:
+  id: 2
   category: shipping
   short_desc: Office Supplies
   full_desc: Anything office related
+
+transportation:
+  id: 3
+  category: transportation
+  short_desc: Transportation
+  full_desc: Transportation related costs, fuel, insurance.
+
+storage: 
+  id: 4
+  category: storage
+  short_desc: Product Storage
+  full_desc: Warehousing costs, temporary storage and so on
+
+website:
+  id: 5
+  category: website
+  short_desc: Website Expenses
+  full_desc: Website management, hosting and platform fees.

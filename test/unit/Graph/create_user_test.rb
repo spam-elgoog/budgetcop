@@ -1,26 +1,44 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-module Graphql
-  module Mutations
-    class CreateUserTest < ActiveSupport::TestCase
-      def perform(_user: nil, **args)
-        Mutations::CreateUser.new(object: nil, context: {}).resolve(args)
+module Mutations
+  class CreateUserTest < ActiveSupport::TestCase
+
+    def perform(**args)
+      Mutations::CreateUser.new(object: nil, context: {}).resolve(args)
+    end
+
+    #
+    # Testing required
+    # 1.  if invalid user, return nil for :user and return with errors, record should not exist
+    #     in the db
+    # 2. if valid user is saved and all information saved is what was supplied
+    # 3. check that if admin was not supplied the user is save with admin == false by default
+    # 
+    test 'invalid password' do
+
+      resp = perform(attributes: {f_name: 'Bob', l_name: 'Smith', email: 'smith@gm.com', user_name: 'bobsmither'})
+      puts "Whats thiss #{resp}"
+      if resp[:user].nil?
+        errors = resp[:errors]
+
+        # puts "my eerrorrroorr #{errors[:blank]}"
+        # assert_equal true, errors[:blank]
       end
+      # serv = service[:service]
+    end
 
-      test 'create a new User' do
-        user = perform(
-          f_name: 'Ahmed',
-          l_name: 'Soright',
-          email: 'ahmed@gm.com',
-          username: 'ahmedsoright',
-          password: 'password',
-          password_confirmation: 'password',
-        )
+      # assert_equal user.f_name, 'Ahmeds'
+      # assert_equal user.l_name, 'Soright'
 
-        assert user.persisted?
-        assert_equal user.f_name, 'Ahmeds'
-        assert_equal user.l_name, 'Soright'
+          # user = perform(
+          #   f_name: 'Ahmed',
+          #   l_name: 'Soright',
+          #   email: 'ahmed@gm.com',
+          #   username: 'ahmedsoright',
+          #   password: 'password',
+          #   password_confirmation: 'password',
+          # )
 
         # test "delete" do
         #   collection = collections(:snowboards)
@@ -42,7 +60,6 @@ module Graphql
         #   # assert_raises(ActiveRecord::RecordNotFound) { @user.find(id) }
         #   assert_raises(ActiveRecord::RecordNotFound) { @shop.collections.find(collection.id) }
         # end
-      end
-    end
   end
 end
+

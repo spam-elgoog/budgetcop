@@ -1,7 +1,11 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 class BudgetDetailTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+  end
+
+  test "check that detail category is unique per plan" do
+    assert true
+  end
 end

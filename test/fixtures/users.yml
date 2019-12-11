@@ -1,10 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  f_name: July
-  l_name: ThundFly
-  user_name: julyfly
-  email: july@gm.com
+  f_name: Jan
+  l_name: Rocker
+  user_name: janrocker
+  email: jan@gm.com
   password_digest: password
 
 two:
