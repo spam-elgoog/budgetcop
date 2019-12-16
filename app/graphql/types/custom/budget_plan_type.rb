@@ -9,6 +9,9 @@ module Types
       # this is redundant but its here to make things simpler for front end
       field :year, Integer, null: false, description: 'The year this monthly budget corresponds to.'
       field :month, String, null: false, description: "The budgeted month."
+      field :user, Types::Custom::UserType, null: false, description: "The budgeted month."
+      field :budget_details, [Types::Custom::PlanDetailType], null: false, description: "The budgeted month."
+      field :expenses, [Types::Custom::ExpenseType], null: false, description: "The budgeted month."
     end
   end
 end

@@ -16,6 +16,16 @@ module Types
       User.all
     end
 
+    # **************************************************
+    field :all_expenses,
+      [Types::Custom::ExpenseType],
+      null: true,
+      description: "Find Expenses by a plan id"
+
+    def all_expenses
+      Expense.all
+    end
+
     field :user, Types::Custom::UserType, null: false do
       description 'Returns user details.'
       argument :id, ID, 'Get details of the user with this ID ', required: true

@@ -8,6 +8,9 @@ module Types
       field :l_name, String, null: true, description: "Last name"
       field :email, String, null: true, description: "email"
       field :user_name, String, null: true, description: "user_name"
+      field :created_at, String, null: true, description: "user_name"
+      field :updated_at, String, null: true, description: "user_name"
+      field :budget_plans, [Types::Custom::BudgetPlanType], null: true, description: "user_name"
     end
   end
 end

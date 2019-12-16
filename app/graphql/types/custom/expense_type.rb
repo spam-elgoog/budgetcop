@@ -7,10 +7,8 @@ module Types
       field :details, String, null: false, description: "User supplied Details of the expense"
       field :amount, Float, null: false, description: "The amount of the expenditure"
       field :budget_plan_id, ID, null: false, description: "FK from Budget_Plans"
-      field :category, Types::Custom::CategoryType, null: false, description: "Category details"
-      # field :category_id, ID, null: false,
-      #   description: "FK from Categories, the category is expenditure is tied to"
-      # field :category, Types::Custom::CategoryEnum, null: false, description: "Category"
+      field :category, Types::Custom::CategoryType, null: true, description: "Category details"
+      field :budget_plan, Types::Custom::BudgetPlanType, null: true, description: "Related to"
     end
   end
 end

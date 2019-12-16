@@ -8,6 +8,8 @@ module Types
       field :category, String, null: false, description: ""
       field :short_desc, String, null: false, description: ""
       field :full_desc, String, null: false, description: ""
+      field :expenses, [Types::Custom::ExpenseType], null: true, description: ""
+      field :budget_details, [Types::Custom::PlanDetailType], null: true, description: ""
     end
   end
 end

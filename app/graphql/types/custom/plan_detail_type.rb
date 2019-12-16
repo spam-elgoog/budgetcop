@@ -7,6 +7,7 @@ module Types
       field :id, ID, null: true, description: "Auto Generated ID"
       field :amount, Float, null: true, description: "The amount this user budgeted on this Category"
       field :category, Types::Custom::CategoryType, null: true, description: "Category details"
+      field :budget_plan, Types::Custom::BudgetPlanType, null: true, description: "Category details"
     end
   end
 end
